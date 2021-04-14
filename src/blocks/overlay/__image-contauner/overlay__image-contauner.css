@@ -1,0 +1,5 @@
+.overlay__image-contauner {
+  max-width: 75vw;
+  max-height: 75vh;
+  position: relative;
+}

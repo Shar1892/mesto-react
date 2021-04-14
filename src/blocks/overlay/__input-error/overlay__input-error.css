@@ -1,0 +1,15 @@
+.overlay__input-error {
+  margin: 0;
+  max-width: 100%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  -webkit-font-smoothing: antialiased;
+  color: #ff0000;
+  position: absolute;
+  left: 0;
+  top: 42px;
+
+  opacity: 0;
+}

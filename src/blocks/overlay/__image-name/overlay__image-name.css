@@ -1,0 +1,16 @@
+.overlay__image-name {
+  margin: 0;
+  position: absolute;
+  left: 0;
+  bottom: -22px;
+  width: 100%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  -webkit-font-smoothing: antialiased;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #ffffff;
+}

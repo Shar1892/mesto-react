@@ -1,0 +1,22 @@
+.overlay__input {
+  border: 0;
+  width: 100%;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  line-height: 36px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  padding: 0;
+
+  
+}
+
+.overlay__input:focus {
+  outline-color: rgba(0, 0, 0, 0.2);
+}

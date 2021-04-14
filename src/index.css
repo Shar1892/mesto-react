@@ -1,4 +1,4 @@
-body {
+/*body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,64 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
+}*/
+
+
+@import url(./vendor/fonts.css);
+@import url(./vendor/normalize.css);
+
+@import url(./blocks/page/page.css);
+@import url(./blocks/page/__header-margin/page__header-margin.css);
+@import url(./blocks/page/__profile-margin/page__profile-margin.css);
+@import url(./blocks/page/__elements-margin/page__elements-margin.css);
+@import url(./blocks/page/__footer-margin/page__footer-margin.css);
+
+@import url(./blocks/header/header.css);
+@import url(./blocks/header/__logo/header__logo.css);
+
+@import url(./blocks/profile/profile.css);
+@import url(./blocks/profile/__avatar/profile__avatar.css);
+@import url(./blocks/profile/__container/profile__container.css);
+@import url(./blocks/profile/__edit-button/profile__edit-button.css);
+@import url(./blocks/profile/__info/profile__info.css);
+@import url(./blocks/profile/__name/profile__name.css);
+@import url(./blocks/profile/__activity/profile__activity.css);
+@import url(./blocks/profile/__add-button/profile__add-button.css);
+@import url(./blocks/profile/__avatar-container/profile__avatar-container.css);
+@import url(./blocks/profile/__pencil-container/profile__pencil-container.css);
+@import url(./blocks/profile/__pencil/profile__pencil.css);
+
+@import url(./blocks/elements/elements.css);
+
+@import url(./blocks/element/element.css);
+@import url(./blocks/element/__photo/element__photo.css);
+@import url(./blocks/element/__container/element__container.css);
+@import url(./blocks/element/__name/element__name.css);
+@import url(./blocks/element/__like/element__like.css);
+@import url(./blocks/element/__like/_active/element__like_active.css);
+@import url(./blocks/element/__basket/element__basket.css);
+@import url(./blocks/element/__basket/_type/element__basket_type_hidden.css);
+@import url(./blocks/element/__like-container/element__like-container.css);
+@import url(./blocks/element/__like-counter/element__like-counter.css);
+
+@import url(./blocks/footer/footer.css);
+@import url(./blocks/footer/__copyright/footer__copyright.css);
+
+@import url(./blocks/overlay/overlay.css);
+@import url(./blocks/overlay/__container/overlay__container.css);
+@import url(./blocks/overlay/__close/overlay__close.css);
+@import url(./blocks/overlay/__form/overlay__form.css);
+@import url(./blocks/overlay/__title/overlay__title.css);
+@import url(./blocks/overlay/__input/overlay__input.css);
+@import url(./blocks/overlay/__input/_type/overlay__input_type_error.css);
+@import url(./blocks/overlay/__save-button/overlay__save-button.css);
+@import url(./blocks/overlay/__save-button/_disabled/overlay__save-button_disabled.css);
+@import url(./blocks/overlay/__image-contauner/overlay__image-contauner.css);
+@import url(./blocks/overlay/__image/overlay__image.css);
+@import url(./blocks/overlay/__image-name/overlay__image-name.css);
+@import url(./blocks/overlay/__input-error/overlay__input-error.css);
+@import url(./blocks/overlay/__input-error/_visible/overlay__input-error_visible.css);
+@import url(./blocks/overlay/__input-container/overlay__input-container.css);
+@import url(./blocks/overlay/__confirm-button/overlay__confirm-button.css);
+
+@import url(./blocks/page/__popup/_opened/page__popup_opened.css);

@@ -1,0 +1,9 @@
+.profile__pencil{
+  height: 26px;
+  width: 26px;
+
+  background-image: url(../../../images/pencil.svg);
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+}

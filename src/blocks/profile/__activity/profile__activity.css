@@ -1,0 +1,20 @@
+.profile__activity {
+  margin: 0;
+  max-width: 100%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  -webkit-font-smoothing: antialiased;
+  color: #ffffff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1024px) {
+  .profile__activity {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
