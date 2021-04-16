@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -8,25 +8,25 @@ import ImagePopup from './ImagePopup';
 
 const App = () => {
 
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
 
   const handleEditAvatarClick = () => {
-    setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
     setEventListeners();
   }
 
   const handleEditProfileClick = () => {
-    setEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
     setEventListeners();
   }
 
   const handleAddPlaceClick = () => {
-    setAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
     setEventListeners();
   }
 
@@ -46,10 +46,10 @@ const App = () => {
   }
 
   const closeAllPopups = () => {
-    setEditProfilePopupOpen(false);
-    setAddPlacePopupOpen(false);
-    setEditAvatarPopupOpen(false);
-    setSelectedCard(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setSelectedCard(null);
     document.removeEventListener('keydown', handleEscClose);
   }
 
@@ -97,7 +97,8 @@ const App = () => {
         <button type="submit" className="overlay__confirm-button overlay__confirm-button_type_image-remove">Да</button>
       </PopupWithForm>
 
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+      {selectedCard && <ImagePopup card={selectedCard} onClose={closeAllPopups} />}
+      
 
     </div>
   );

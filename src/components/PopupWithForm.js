@@ -1,25 +1,23 @@
-const PopupWithForm = (props) => {
+const PopupWithForm = ({isOpen, name, title, children, onClose}) => {
   return (
     <section
-      className={props.isOpen ? `overlay overlay_type_${props.name} page__popup_opened` : `overlay overlay_type_${props.name}`}
+      className={`overlay overlay_type_${name} ${isOpen ? 'page__popup_opened' : ''}`}
       onClick={
         (evt) => {
-          if (evt.target.classList.contains('page__popup_opened')) {
-            
-            props.onClose();
+          if (evt.target === evt.currentTarget) {
+            onClose();
           }
           if (evt.target.classList.contains('overlay__close')) {
-            
-            props.onClose();
+            onClose();
           }
         }
       }
     >
       <div className="overlay__container">
         <button className="overlay__close" type="reset"></button>
-        <form className={`overlay__form overlay__form_type_${props.name}`} name={props.name} noValidate>
-          <h2 className="overlay__title">{props.title}</h2>
-          {props.children}
+        <form className={`overlay__form overlay__form_type_${name}`} name={name} noValidate>
+          <h2 className="overlay__title">{title}</h2>
+          {children}
         </form>
       </div>
     </section>

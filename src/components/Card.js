@@ -1,18 +1,18 @@
-const Card = (props) => {
+const Card = ({card, onCardClick}) => {
 
   const handelClick = () => {
-    props.onCardClick(props.card);
+    onCardClick(card);
   }
 
   return (
-    <div className="element" onClick={handelClick}>
+    <div className="element">
       <button className="element__basket" type="button"></button>
-      <img src={props.card.link} alt={props.card.name} className="element__photo" />
+      <img src={card.link} alt={card.name} className="element__photo" onClick={handelClick} />
       <div className="element__container">
-        <h2 className="element__name">{props.card.name}</h2>
+        <h2 className="element__name">{card.name}</h2>
         <div className="element__like-container">
           <button className="element__like" type="button"></button>
-          <p className="element__like-counter">{props.card.likes ? props.card.likes.length : 0}</p>
+          <p className="element__like-counter">{card.likes ? card.likes.length : 0}</p>
         </div>
       </div>
     </div>
