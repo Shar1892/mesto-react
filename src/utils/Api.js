@@ -80,7 +80,7 @@ class Api {
   }
 
 
-  putLike(id) {
+  /*putLike(id) {
     return fetch(`${this._cardUrl}/likes/${id}`, {
       method: 'PUT',
       headers: this._headers
@@ -96,6 +96,24 @@ class Api {
     })
       .then(res => this._parseResponse(res))
       .catch((err) => Promise.reject(err));
+  }*/
+
+  changeLikeCardStatus(id, isLiked) {
+    if (isLiked) {
+      return fetch(`${this._cardUrl}/likes/${id}`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+        .then(res => this._parseResponse(res))
+        .catch((err) => Promise.reject(err));
+    } else {
+      return fetch(`${this._cardUrl}/likes/${id}`, {
+        method: 'PUT',
+        headers: this._headers
+      })
+        .then(res => this._parseResponse(res))
+        .catch((err) => Promise.reject(err));
+    }
   }
 
 }

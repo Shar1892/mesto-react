@@ -1,4 +1,4 @@
-const PopupWithForm = ({isOpen, name, title, children, onClose}) => {
+const PopupWithForm = ({isOpen, name, title, children, onClose, onSubmit}) => {
   return (
     <section
       className={`overlay overlay_type_${name} ${isOpen ? 'page__popup_opened' : ''}`}
@@ -15,7 +15,7 @@ const PopupWithForm = ({isOpen, name, title, children, onClose}) => {
     >
       <div className="overlay__container">
         <button className="overlay__close" type="reset"></button>
-        <form className={`overlay__form overlay__form_type_${name}`} name={name} noValidate>
+        <form className={`overlay__form overlay__form_type_${name}`} name={name} onSubmit={onSubmit} noValidate>
           <h2 className="overlay__title">{title}</h2>
           {children}
         </form>

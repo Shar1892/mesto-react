@@ -14,7 +14,7 @@ const ImagePopup = ({card, onClose}) => {
       }
     >
       <div className="overlay__image-contauner">
-        <button className="overlay__close" type="reset"></button>
+        <button className="overlay__close"></button>
         <img src={card.link} alt={card.name} className="overlay__image" />
         <h2 className="overlay__image-name">{card.name}</h2>
       </div>

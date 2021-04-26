@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import { api } from '../utils/Api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 
 
 const App = () => {
+
+  const [currentUser, setCurrentUser] = useState({});
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -14,6 +21,18 @@ const App = () => {
 
   const [selectedCard, setSelectedCard] = useState(null);
 
+  const [cards, setCards] = useState([]);
+
+
+  useEffect(() => {
+    api.getUser()
+      .then((userData) => {
+        setCurrentUser(userData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -38,7 +57,7 @@ const App = () => {
   const setEventListeners = () => {
     document.addEventListener('keydown', handleEscClose);
   }
-  
+
   const handleEscClose = (evt) => {
     if (evt.key === 'Escape') {
       closeAllPopups();
@@ -53,53 +72,107 @@ const App = () => {
     document.removeEventListener('keydown', handleEscClose);
   }
 
+  const handleUpdateUser = (data) => {
+    api.setUserData(data)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    
+    closeAllPopups();
+  }
+
+  const handleUpdateAvatar = (data) => {
+    api.setUserAvatar(data)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    closeAllPopups();
+  }
+
+
+  useEffect(() => {
+    api.getCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [cards]);
+
+  const handleClickLike = (card) => {
+    const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        let newCardsArr = cards.map((crd) => crd._id === card._id ? newCard : crd);
+        setCards(newCardsArr);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const handleCardDelete = (card) => {
+    api.removeCard(card._id)
+      .then(() => {
+        let index = cards.findIndex((crd) => crd._id === card._id);
+        cards.splice(index, 1);
+        setCards(cards);
+      })
+  }
+
+
+  const handleAddPlaceSubmit = (card) => {
+    api.createCard(card)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    closeAllPopups();
+  }
+
+
   return (
     <div className="page">
-      <Header />
+      <CurrentUserContext.Provider value={currentUser}>
 
-      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick ={handleCardClick}/>
+        <Header />
 
-      <Footer />
+        <Main
+          onEditAvatar={handleEditAvatarClick}
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onCardClick={handleCardClick}
+          cards={cards}
+          onCardLike={handleClickLike}
+          onCardDelete={handleCardDelete}
+        />
 
-      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
-        <div className="overlay__input-container">
-          <input type="text" id="user-name-input" className="overlay__input overlay__input_type_user-name" name="name" minLength="2" maxLength="40" required />
-          <span className="overlay__input-error overlay__user-name-input-error"></span>
-        </div>
-        <div className="overlay__input-container">
-          <input type="text" id="user-activity-input" className="overlay__input overlay__input_type_user-activity" name="about" minLength="2" maxLength="200" required />
-          <span className="overlay__input-error overlay__user-activity-input-error"></span>
-        </div>
-        <button type="submit" className="overlay__save-button overlay__save-button_type_profile">Сохранить</button>
-      </PopupWithForm>
+        <Footer />
 
-      <PopupWithForm name="place" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
-        <div className="overlay__input-container">
-          <input type="text" id="place-name-input" className="overlay__input overlay__input_type_place-name" placeholder="Название" name="name" minLength="2" maxLength="30" required />
-          <span className="overlay__input-error overlay__place-name-input-error"></span>
-        </div>
-        <div className="overlay__input-container">
-          <input type="url" id="place-link-input" className="overlay__input overlay__input_type_place-link" placeholder="Ссылка на картинку" name="link" required />
-          <span className="overlay__input-error overlay__place-link-input-error"></span>
-        </div>
-        <button type="submit" className="overlay__save-button overlay__save-button_type_place">Сохранить</button>
-      </PopupWithForm>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
-      <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
-        <div className="overlay__input-container">
-          <input type="url" id="avatar-input" className="overlay__input overlay__input_type_avatar" name="avatar" required />
-          <span className="overlay__input-error overlay__avatar-input-error"></span>
-        </div>
-        <button type="submit" className="overlay__save-button overlay__save-button_type_avatar">Сохранить</button>
-      </PopupWithForm>
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
 
-      <PopupWithForm name="image-remove" title="Вы уверены?">
-        <button type="submit" className="overlay__confirm-button overlay__confirm-button_type_image-remove">Да</button>
-      </PopupWithForm>
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
 
-      {selectedCard && <ImagePopup card={selectedCard} onClose={closeAllPopups} />}
-      
+        <PopupWithForm name="image-remove" title="Вы уверены?">
+          <button type="submit" className="overlay__confirm-button overlay__confirm-button_type_image-remove">Да</button>
+        </PopupWithForm>
 
+        {selectedCard && <ImagePopup card={selectedCard} onClose={closeAllPopups} />}
+
+      </CurrentUserContext.Provider>
     </div>
   );
 }
