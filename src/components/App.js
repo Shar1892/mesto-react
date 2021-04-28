@@ -103,7 +103,7 @@ const App = () => {
 			.catch((err) => {
 				console.log(err);
 			});
-	}, [cards]);
+	}, []);
 
 	const handleClickLike = (card) => {
 		const isLiked = card.likes.some((liker) => liker._id === currentUser._id);
